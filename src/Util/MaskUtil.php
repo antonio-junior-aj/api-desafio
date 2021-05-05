@@ -1,10 +1,11 @@
 <?php
-
 namespace App\Util;
 
-class MaskUtil {
+class MaskUtil
+{
 
-    public static function maskCpf($cpf) {
+    public static function maskCpf($cpf)
+    {
         $cpfPt1 = substr($cpf, 0, 3);
         $cpfPt2 = substr($cpf, 3, 3);
         $cpfPt3 = substr($cpf, 6, 3);
@@ -13,7 +14,8 @@ class MaskUtil {
         return $cpfMasked;
     }
 
-    public static function maskCnpj($cnpj) {
+    public static function maskCnpj($cnpj)
+    {
         $cnpjPt1 = substr($cnpj, 0, 2);
         $cnpjPt2 = substr($cnpj, 2, 3);
         $cnpjPt3 = substr($cnpj, 5, 3);
@@ -23,19 +25,20 @@ class MaskUtil {
         return $cnpjMasked;
     }
 
-    public static function unMaskCpf($cpf) {
+    public static function unMaskCpf($cpf)
+    {
         $cpf = explode(".", $cpf);
         $cpf2 = explode("-", $cpf[2]);
         $cpfUnMasked = $cpf[0] . $cpf[1] . $cpf2[0] . $cpf2[1];
         return $cpfUnMasked;
     }
 
-    public static function unMaskCnpj($cnpj) {
+    public static function unMaskCnpj($cnpj)
+    {
         $cnpj = explode(".", $cnpj);
         $cnpj2 = explode("/", $cnpj[2]);
         $cnpj3 = explode("-", $cnpj2[1]);
         $cnpjUnMasked = $cnpj[0] . $cnpj[1] . $cnpj2[0] . $cnpj3[0] . $cnpj3[1];
         return $cnpjUnMasked;
     }
-
 }

@@ -1,10 +1,11 @@
 <?php
-
 namespace App\Util;
 
-class ValidateUtil {
+class ValidateUtil
+{
 
-    public static function validaCpf($cpf) {
+    public static function validaCpf($cpf)
+    {
         if ($cpf == "11111111111" or $cpf == "22222222222" or $cpf == "33333333333" or $cpf == "44444444444" or $cpf == "55555555555" or $cpf == "66666666666" or $cpf == "77777777777" or $cpf == "88888888888" or $cpf == "99999999999" or $cpf == "00000000000") {
             return false;
         }
@@ -28,7 +29,8 @@ class ValidateUtil {
         return true;
     }
 
-    public static function validaCnpj($cnpj) {
+    public static function validaCnpj($cnpj)
+    {
 
         $RecebeCNPJ = $cnpj;
         $s = "";
@@ -59,7 +61,7 @@ class ValidateUtil {
             $Numero[14] = intval(substr($RecebeCNPJ, 14 - 1, 1));
 
             $soma = $Numero[1] * 5 + $Numero[2] * 4 + $Numero[3] * 3 + $Numero[4] * 2 + $Numero[5] * 9 + $Numero[6] * 8 + $Numero[7] * 7 +
-                    $Numero[8] * 6 + $Numero[9] * 5 + $Numero[10] * 4 + $Numero[11] * 3 + $Numero[12] * 2;
+                $Numero[8] * 6 + $Numero[9] * 5 + $Numero[10] * 4 + $Numero[11] * 3 + $Numero[12] * 2;
 
             $soma = $soma - (11 * (intval($soma / 11)));
 
@@ -71,7 +73,7 @@ class ValidateUtil {
 
             if ($resultado1 == $Numero[13]) {
                 $soma = $Numero[1] * 6 + $Numero[2] * 5 + $Numero[3] * 4 + $Numero[4] * 3 + $Numero[5] * 2 + $Numero[6] * 9 +
-                        $Numero[7] * 8 + $Numero[8] * 7 + $Numero[9] * 6 + $Numero[10] * 5 + $Numero[11] * 4 + $Numero[12] * 3 + $Numero[13] * 2;
+                    $Numero[7] * 8 + $Numero[8] * 7 + $Numero[9] * 6 + $Numero[10] * 5 + $Numero[11] * 4 + $Numero[12] * 3 + $Numero[13] * 2;
                 $soma = $soma - (11 * (intval($soma / 11)));
                 if ($soma == 0 || $soma == 1) {
                     $resultado2 = 0;
@@ -92,5 +94,4 @@ class ValidateUtil {
         //Fim do validar CNPJ
         return false;
     }
-
 }

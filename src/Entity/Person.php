@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PersonRepository::class)
  */
-class Person
+class Person implements \JsonSerializable
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,11 +20,17 @@ class Person
 
     /**
      * @ORM\Column(type="string", length=8, options={"comment":"Tipo de pessoa: F- Física (tem CPF); J- Jurídica (tem CNPJ)"})
+     * @Assert\NotBlank(message="Tipo não preenchido")
+     * @Assert\Choice(
+     *     choices = {"F", "J"},
+     *     message = "Selecione Pessoa Física(F) ou Jurídica(J)"
+     * )
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=14, options={"comment":"CPF: 111.111.112-00(grava sem máscara); CNPJ: 55.238.879/0001-04(grava sem máscara)"})
+     * @Assert\NotBlank(message="CPF/CNPJ não preenchido")
      */
     private $cpf_cnpj;
 
@@ -139,5 +146,34 @@ class Person
         $this->updated_at = $update_at;
 
         return $this;
+    }
+
+    ### SETANDO VALORES CONSTANTES ###
+    const TIPO_FISICO = 'F';
+    const TIPO_JURIDICO = 'J';
+
+    public static $_TIPO = [
+        self::TIPO_FISICO => "Física",
+        self::TIPO_JURIDICO => "Jurídica",
+    ];
+
+    /**
+     * Função que trata todo o retorno da classe Person
+     * 
+     * @return object Person
+     */
+    public function jsonSerialize()
+    {
+        $person = [
+            'id' => $this->getId(),
+            'type' => Person::$_TIPO[$this->getType()],
+            'value' => $this->getCpfCnpj(),
+            'blacklist' => $this->getBlacklist(),
+            'blacklistReason' => $this->getBlacklistReason(),
+            'ordernumber' => $this->getOrderNumber(),
+            'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format("d/m/Y H:i:s") : null,
+            'updateAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format("d/m/Y H:i:s") : null,
+        ];
+        return $person;
     }
 }
