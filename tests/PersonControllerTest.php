@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class PersonControllerTest extends WebTestCase
 {
 
-    const ID_TRATADO = 1;
+    const ID_TRATADO = 1; # ID utilizado de forma estática
 
     public function testCreateWithSuccess(): void
     {

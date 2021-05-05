@@ -16,7 +16,7 @@ class PersonController extends AbstractController
 {
 
     /**
-     * ROTA 1
+     * ROTA 1 - index (retorna as pessoas cadastradas)
      * 
      * @Route("/", name="index", methods={"GET"})
      */
@@ -34,16 +34,13 @@ class PersonController extends AbstractController
 
         if (!$persons->count()) {
             return new JsonResponse('Sem registros encontrados', Response::HTTP_NO_CONTENT);
-            throw $this->createNotFoundException(
-                'Sem registros encontrados'
-            );
         }
 
         return $this->json(['data' => $persons]);
     }
 
     /**
-     * ROTA 2
+     * ROTA 2 - show (retorna a pessoas cadastrada)
      * 
      * @Route("/{personId}", name="show", methods={"GET"})
      */
@@ -53,16 +50,13 @@ class PersonController extends AbstractController
 
         if (!$person) {
             return new JsonResponse('Sem registro encontrado para o índice: ' . $personId, Response::HTTP_NO_CONTENT);
-            throw $this->createNotFoundException(
-                'Sem registro encontrado para o índice: ' . $personId
-            );
         }
 
         return $this->json(['data' => $person]);
     }
 
     /**
-     * ROTA 3
+     * ROTA 3 - create (cria nova pessoa)
      * 
      * @Route("/", name="create", methods={"POST"})
      */
@@ -104,7 +98,7 @@ class PersonController extends AbstractController
     }
 
     /**
-     * ROTA 4
+     * ROTA 4 - update (atualiza pessoa)
      * 
      * @Route("/{personId}", name="update",  methods={"PUT", "PATCH"})
      */
@@ -125,9 +119,6 @@ class PersonController extends AbstractController
         
         if (!$person) {
             return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
-            throw $this->createNotFoundException(
-                'Sem registro encontrado'
-            );
         }
         
         if ($request->request->has("type")) {
@@ -157,7 +148,7 @@ class PersonController extends AbstractController
     }
 
     /**
-     * ROTA 5
+     * ROTA 5 - delete (deleta a pessoa)
      * 
      * @Route("/{personId}", name="delete", methods={"DELETE"})
      */
@@ -168,9 +159,6 @@ class PersonController extends AbstractController
 
         if (!$person) {
             return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
-            throw $this->createNotFoundException(
-                'Sem registro encontrado'
-            );
         }
 
         $manager = $doctrine->getManager();
@@ -181,7 +169,7 @@ class PersonController extends AbstractController
     }
 
     /**
-     * ROTA 6
+     * ROTA 6 - blacklist (marca/desmarca usuário na blacklist)
      * 
      * @Route("/{personId}/blacklist", name="blacklist",  methods={"PUT", "PATCH"})
      */
@@ -195,9 +183,6 @@ class PersonController extends AbstractController
 
         if (!$person) {
             return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
-            throw $this->createNotFoundException(
-                'Sem registro encontrado'
-            );
         }
 
         $person->setBlacklist($data["blacklist"]);
@@ -219,7 +204,7 @@ class PersonController extends AbstractController
     }
 
     /**
-     * ROTA 7
+     * ROTA 7 - reorder (reordena os registros)
      * 
      * @Route("/reorder", name="reorder", methods={"POST"})
      */
@@ -230,9 +215,6 @@ class PersonController extends AbstractController
 
         if (!$data["ids"]) {
             return new JsonResponse('Sem IDs enviado', Response::HTTP_NO_CONTENT);
-            throw $this->createNotFoundException(
-                'Sem IDs enviado'
-            );
         }
         $repository->reorder($data["ids"]);
 
