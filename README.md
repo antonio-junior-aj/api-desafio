@@ -2,7 +2,15 @@
 # API Desafio CPF/CNPJ
 > Desenvolver uma API em PHP de CRUD de CPF/CNPJ que deve conter a possibilidade de filtro, reordenação e marcar alguns items em uma black list.
 
-API que simula o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ), utilizando PHP com banco MYSQL e framework Symfony5.2.
+API que simula o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ) utilizando:
+* [PHP](https://www.php.net/)
+* [Symfony5.2](https://symfony.com/releases/5.2)
+* [MYSQL](https://www.mysql.com/)
+* [Doctrine](https://www.doctrine-project.org/)
+* [Docker](https://www.docker.com/)
+* [PHP Unit](https://phpunit.de/)
+* [Postman](https://www.postman.com/)
+* [Swagger](https://swagger.io/)
 
 ### Pré requisitos
 
