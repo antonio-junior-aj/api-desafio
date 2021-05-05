@@ -11,6 +11,8 @@
 
 /nbproject/
 /docker/database/
+/.env.test
+
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache

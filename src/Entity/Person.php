@@ -25,12 +25,24 @@ class Person implements \JsonSerializable
      *     choices = {"F", "J"},
      *     message = "Selecione Pessoa Física(F) ou Jurídica(J)"
      * )
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 1,
+     *      minMessage = "Tipo deve ter 1 caracter",
+     *      maxMessage = "Tipo deve ter 1 caracter",
+     * )
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=14, options={"comment":"CPF: 111.111.112-00(grava sem máscara); CNPJ: 55.238.879/0001-04(grava sem máscara)"})
      * @Assert\NotBlank(message="CPF/CNPJ não preenchido")
+     * @Assert\Length(
+     *      min = 11,
+     *      max = 14,
+     *      minMessage = "CPF/CNPJ deve ter no mínimo 11 caracter",
+     *      maxMessage = "CPF/CNPJ deve ter no máximo 14 caracter",
+     * )
      */
     private $cpf_cnpj;
 

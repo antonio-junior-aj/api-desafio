@@ -33,10 +33,11 @@ class PersonController extends AbstractController
         $persons = $repository->findAllQueryBuilder($request, $order, ($request->request->has("PAGE") ? $request->request->get("PAGE") : 1));
 
         if (!$persons->count()) {
+            return new JsonResponse('Sem registros encontrados', Response::HTTP_NO_CONTENT);
             throw $this->createNotFoundException(
                 'Sem registros encontrados'
             );
-        }        
+        }
 
         return $this->json(['data' => $persons]);
     }
@@ -47,15 +48,16 @@ class PersonController extends AbstractController
      * @Route("/{personId}", name="show", methods={"GET"})
      */
     public function show($personId): Response
-    {        
+    {
         $person = $this->getDoctrine()->getRepository(Person::class)->find($personId);
 
         if (!$person) {
+            return new JsonResponse('Sem registro encontrado para o índice: ' . $personId, Response::HTTP_NO_CONTENT);
             throw $this->createNotFoundException(
                 'Sem registro encontrado para o índice: ' . $personId
             );
         }
-        
+
         return $this->json(['data' => $person]);
     }
 
@@ -120,6 +122,14 @@ class PersonController extends AbstractController
 
         $data = $request->request->all();
         $person = $repository->find($personId);
+        
+        if (!$person) {
+            return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
+            throw $this->createNotFoundException(
+                'Sem registro encontrado'
+            );
+        }
+        
         if ($request->request->has("type")) {
             $person->setType($data["type"]);
         }
@@ -156,6 +166,13 @@ class PersonController extends AbstractController
         $doctrine = $this->getDoctrine();
         $person = $this->getDoctrine()->getRepository(Person::class)->find($personId);
 
+        if (!$person) {
+            return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
+            throw $this->createNotFoundException(
+                'Sem registro encontrado'
+            );
+        }
+
         $manager = $doctrine->getManager();
         $manager->remove($person);
         $manager->flush();
@@ -175,6 +192,14 @@ class PersonController extends AbstractController
 
         $data = $request->request->all();
         $person = $repository->find($personId);
+
+        if (!$person) {
+            return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
+            throw $this->createNotFoundException(
+                'Sem registro encontrado'
+            );
+        }
+
         $person->setBlacklist($data["blacklist"]);
         if ($data["blacklist"]) {
             $person->setBlacklistReason($data["reason"]);
@@ -204,6 +229,7 @@ class PersonController extends AbstractController
         $data = $request->request->all();
 
         if (!$data["ids"]) {
+            return new JsonResponse('Sem IDs enviado', Response::HTTP_NO_CONTENT);
             throw $this->createNotFoundException(
                 'Sem IDs enviado'
             );
