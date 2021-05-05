@@ -109,7 +109,7 @@ class PersonController extends AbstractController
 
         # validacao manual PHP
         try {
-            $repository->getValid($request->request, true);
+            $repository->getValid($request->request, $personId);
         } catch (\Exception $ex) {
             return new JsonResponse(['errors' => $ex->getMessage(),], Response::HTTP_BAD_REQUEST);
         }

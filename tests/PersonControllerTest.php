@@ -8,6 +8,30 @@ class PersonControllerTest extends WebTestCase
 
     const ID_TRATADO = 1; # ID utilizado de forma estática
 
+    public function testIndex(): void
+    {
+        $client = static::createClient();
+
+        $client->request(
+            'GET',
+            '/persons',
+        );
+
+        self::assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testShow(): void
+    {
+        $client = static::createClient();
+
+        $client->request(
+            'GET',
+            '/persons/' . self::ID_TRATADO,
+        );
+
+        self::assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
     public function testCreateWithSuccess(): void
     {
         $client = static::createClient();
@@ -148,18 +172,6 @@ class PersonControllerTest extends WebTestCase
             'PUT',
             '/persons/' . self::ID_TRATADO . '/blacklist',
             $postData,
-        );
-
-        self::assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testIndex(): void
-    {
-        $client = static::createClient();
-
-        $client->request(
-            'GET',
-            '/persons',
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());

@@ -59,7 +59,6 @@ class PersonRepository extends ServiceEntityRepository
         }
 
         $qb->addOrderBy("person." . $order);
-//        dd($qb->getQuery()->getSQL()); # debug
 
         $paginator = $this->paginate($qb, $page);
 
@@ -98,7 +97,6 @@ class PersonRepository extends ServiceEntityRepository
                 ';
         $query = $this->getEntityManager()->createQuery($dql);
         $max = $query->execute();
-//        dd($max);
         return isset($max[0]['MAXIMO']) ? $max[0]['MAXIMO'] + 1 : 1;
     }
 
@@ -217,42 +215,15 @@ class PersonRepository extends ServiceEntityRepository
         }
 
         $query = $this->createQueryBuilder('p')
-            ->andWhere('p.type = :type')
+            ->andWhere("p.type = :type")
             ->setParameter('type', $type)
-            ->andWhere('p.cpf_cnpj = :cpf_cnpj')
+            ->andWhere("p.cpf_cnpj = :cpf_cnpj")
             ->setParameter('cpf_cnpj', $cpf_cnpj);
         if ($id) {
-            $query->andWhere('p.id = :id')->setParameter('id', $id);
+            $query->andWhere("p.id <> :id")
+                ->setParameter('id', $id);
         }
 
         return $query->getQuery()->getOneOrNullResult();
     }
-    // /**
-    //  * @return Person[] Returns an array of Person objects
-    //  */
-    /*
-      public function findByExampleField($value)
-      {
-      return $this->createQueryBuilder('p')
-      ->andWhere('p.exampleField = :val')
-      ->setParameter('val', $value)
-      ->orderBy('p.id', 'ASC')
-      ->setMaxResults(10)
-      ->getQuery()
-      ->getResult()
-      ;
-      }
-     */
-
-    /*
-      public function findOneBySomeField($value): ?Person
-      {
-      return $this->createQueryBuilder('p')
-      ->andWhere('p.exampleField = :val')
-      ->setParameter('val', $value)
-      ->getQuery()
-      ->getOneOrNullResult()
-      ;
-      }
-     */
 }

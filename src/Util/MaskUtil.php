@@ -4,6 +4,12 @@ namespace App\Util;
 class MaskUtil
 {
 
+    /**
+     * Função que máscara o CPF
+     * 
+     * @param string $cpf
+     * @return string
+     */
     public static function maskCpf($cpf)
     {
         $cpfPt1 = substr($cpf, 0, 3);
@@ -14,6 +20,12 @@ class MaskUtil
         return $cpfMasked;
     }
 
+    /**
+     * Função que smascara o CNPJ
+     * 
+     * @param sting $cnpj
+     * @return string
+     */
     public static function maskCnpj($cnpj)
     {
         $cnpjPt1 = substr($cnpj, 0, 2);
@@ -25,6 +37,12 @@ class MaskUtil
         return $cnpjMasked;
     }
 
+    /**
+     * Função que desmascara o CPF
+     * 
+     * @param sting $cpf
+     * @return string
+     */
     public static function unMaskCpf($cpf)
     {
         $cpf = explode(".", $cpf);
@@ -33,6 +51,12 @@ class MaskUtil
         return $cpfUnMasked;
     }
 
+    /**
+     * Função que desmascara o CNPJ
+     * 
+     * @param string $cnpj
+     * @return string
+     */
     public static function unMaskCnpj($cnpj)
     {
         $cnpj = explode(".", $cnpj);

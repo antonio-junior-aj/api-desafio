@@ -4,6 +4,12 @@ namespace App\Util;
 class ValidateUtil
 {
 
+    /**
+     * Função que válida o CPF
+     * 
+     * @param string $cpf
+     * @return boolean
+     */
     public static function validaCpf($cpf)
     {
         if ($cpf == "11111111111" or $cpf == "22222222222" or $cpf == "33333333333" or $cpf == "44444444444" or $cpf == "55555555555" or $cpf == "66666666666" or $cpf == "77777777777" or $cpf == "88888888888" or $cpf == "99999999999" or $cpf == "00000000000") {
@@ -29,6 +35,12 @@ class ValidateUtil
         return true;
     }
 
+    /**
+     * Função que válida o CNPJ
+     * 
+     * @param string $cnpj
+     * @return boolean
+     */
     public static function validaCnpj($cnpj)
     {
 
