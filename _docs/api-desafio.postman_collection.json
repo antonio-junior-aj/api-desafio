@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "0bca530a-2a8a-4022-a50a-04d579e51960",
+		"name": "api-desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Person",
+			"item": [
+				{
+					"name": "Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ORDER",
+									"value": "createdAt",
+									"description": "Campo de ordenacao (opcional)",
+									"type": "text"
+								},
+								{
+									"key": "PAGE",
+									"value": "1",
+									"description": "Página solicitada (opcional - padrão 1)",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Busca pelo id (opcional)",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "J",
+									"description": "Busca pelo tipo de pessoa (opcional - F ou J)",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "55.238.879/0001-04",
+									"description": "Busca pelo CPF/CNPJ (opcional - depende do type)",
+									"type": "text"
+								},
+								{
+									"key": "blacklist",
+									"value": "0",
+									"description": "Busca por pessoas na blacklist (opcional)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/persons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "F",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "value",
+									"value": "111.111.112-00",
+									"disabled": true
+								}
+							]
+						},
+						"description": "1º Rota: Para recuperar todos as pessoas, pode ser passado o parâmetro ORDER para voltar ordenado pelo campo solicitado, também o parâmetro PAGE para caso queira uma página específica - padrão id (caso não tenha dados, retornará NULL):\r\nTambém pode ser passado os parâmetros de busca: id, type, value, blacklist"
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Busca pelo id",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/persons/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"1"
+							]
+						},
+						"description": "2º Rota: Para recuperar pessoa pelo ID (caso não recupere, retornará NULL)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "J",
+									"description": "Tipo de pessoa (F: Física ou J:Jurídica)",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "55.238.879/0001-04",
+									"description": "Campo CPF/CNPJ válido (depende do type)",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/persons/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								""
+							]
+						},
+						"description": "3º Rota: Para cadastrar pessoa (CPF ou CNPJ)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "F",
+									"description": "Tipo de pessoa (F: Física ou J:Jurídica)",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "111.111.112-00",
+									"description": "Campo CPF/CNPJ válido (depende do type)",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/persons/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"1"
+							]
+						},
+						"description": "4º Rota: Para editar pessoa pelo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/persons/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"1"
+							]
+						},
+						"description": "5º Rota: Para excluir pessoa pelo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Blacklist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "blacklist",
+									"value": "1",
+									"description": "Campo Blacklist válido (boolean)",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "teste",
+									"description": "Campo descritivo da razão para a pessoa estar na blacklist",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/persons/1/blacklist",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"1",
+								"blacklist"
+							]
+						},
+						"description": "6º Rota: Para marcar/desmarcar na blacklist pelo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Reorder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ids[]",
+									"value": "2",
+									"description": "O ID 2 fica na posição 1",
+									"type": "text"
+								},
+								{
+									"key": "ids[]",
+									"value": "1",
+									"description": "O ID 1 fica na posição 2",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/persons/reorder",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"reorder"
+							]
+						},
+						"description": "7º Rota: Para ordenar as pessoas, enviar um array com os ids que devem estar na ordem"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -179,7 +179,7 @@ class Person implements \JsonSerializable
         $person = [
             'id' => $this->getId(),
             'type' => Person::$_TIPO[$this->getType()],
-            'value' => $this->getCpfCnpj(),
+            'value' => $this->getType() == Person::TIPO_FISICO ? \App\Util\MaskUtil::maskCpf($this->getCpfCnpj()) : \App\Util\MaskUtil::maskCnpj($this->getCpfCnpj()),
             'blacklist' => $this->getBlacklist(),
             'blacklistReason' => $this->getBlacklistReason(),
             'ordernumber' => $this->getOrderNumber(),

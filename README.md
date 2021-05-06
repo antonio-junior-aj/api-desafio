@@ -1,21 +1,19 @@
 
-# API Desafio CPF/CNPJ
-> Desenvolver uma API em PHP de CRUD de CPF/CNPJ que deve conter a possibilidade de filtro, reordenação e marcar alguns items em uma black list.
+# API desafio CPF/CNPJ
+> Desenvolver uma API em PHP de CRUD de CPF/CNPJ que deve conter a possibilidade de filtro, reordenação e marcar alguns itens em uma black list.
 
-API que simula o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ) utilizando:
+API que executa o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ) pelos end-points (rotas), utilizando:
 * [PHP](https://www.php.net/)
-* [Symfony5.2](https://symfony.com/releases/5.2)
+* [Symfony](https://symfony.com/releases/5.2)
 * [MYSQL](https://www.mysql.com/)
 * [Doctrine](https://www.doctrine-project.org/)
 * [Docker](https://www.docker.com/)
 * [PHP Unit](https://phpunit.de/)
 * [Postman](https://www.postman.com/)
-* [Swagger](https://swagger.io/)
 
 ### Pré requisitos
 
 Para executar o projeto é necessário ter:
-
 ```
 Docker Desktop (ou docker tools)
 ```
@@ -36,19 +34,16 @@ docker-compose up --build -d
 ```
 
 Após criado e iniciado o contêiner execute o comando para abrir um terminal no webserver:
-
 ```
 docker exec -it api-desafio-webserver sh
 ```
 
 Dentro do terminal, você estará na pasta `/app`, instale as dependências do projeto com o comando:
-
 ```
 composer install
 ```
 
 Após a instalação é necessário executar a migration do banco com o comando:
-
 ```
 php bin/console doctrine:migrations:migrate
 ```
@@ -57,7 +52,6 @@ php bin/console doctrine:migrations:migrate
 ### Teste Unitário
 
 Ainda com o terminal aberto execute os comandos para criar o banco de teste e copiar o schema:
-
 ```
 php bin/console doctrine:migrations:migrate
 ```
@@ -67,7 +61,6 @@ php bin/console -e test doctrine:schema:create
 ```
 
 Para testar a aplicação é utilizado o PHPUnit, através do comando:
-
 ```
 php bin/phpunit
 ```
@@ -79,8 +72,14 @@ php bin/phpunit --filter {MethodName} tests/PersonControllerTest.php
 
 <!-- TABLE OF CONTENTS -->
 ### Executando a API
+
+Para executar as pode usar um cliente (recomendo postman) e chamar a rota desejada, disponibilizei o arquivo do postman para importar e executar as rotas em:
+```
+_docs/api-desafio.postman_collection.json
+```
+
 <details open="open">
-  <summary>Rotas da Aplicação</summary>
+  <summary>Rotas da Aplicação (baseUrl = localhost:8080/)</summary>
   <ol>
     <li>
       <a href="#rota1">
@@ -104,24 +103,26 @@ GET (baseUrl + 'persons?ORDER=id&PAGE=1', (request, response) => {});
             <br/>
             <pre>
 HTTP STATUS: 200
-[
-    {
-        "id": 1 (int),
-        "type": "F" (ENUM - Física ou Jurídica),
-        "value": "000.000.000-00" (string)
-        "blacklist": false (bool),
-        "blacklistReason": NULL (text),
-        "orderNumber": 1 (int)
-    },
-    {
-        "id": 2 (int),
-        "type": "J" (ENUM - Física ou Jurídica),    
-        "value": "00.000.000/0000-00" (string)
-        "blacklist": true (bool),
-        "blacklistReason": "text if blacklist is true" (text),
-        "orderNumber": 2 (int)
-    }
-]
+{
+    "data": [
+        {
+            "id": 1 (int),
+            "type": "F" (ENUM - Física ou Jurídica),
+            "value": "000.000.000-00" (string)
+            "blacklist": false (bool),
+            "blacklistReason": NULL (text),
+            "orderNumber": 1 (int)
+        },
+        {
+            "id": 2 (int),
+            "type": "J" (ENUM - Física ou Jurídica),    
+            "value": "00.000.000/0000-00" (string)
+            "blacklist": true (bool),
+            "blacklistReason": "text if blacklist is true" (text),
+            "orderNumber": 2 (int)
+        }
+    ]
+}
             </pre>
         </li>
       </ul>
@@ -149,12 +150,14 @@ GET (baseUrl + 'persons/:id', (request, response) => {});
             <pre>
 HTTP HTTP STATUS: 200
 {
-    "id": 2 (int),
-    "type": "J" (ENUM - Física ou Jurídica),    
-    "value": "00.000.000/0000-00" (string),
-    "blacklist": true (bool),
-    "blackistReason": "text if blacklist is true" (text),
-    "orderNumber": 2 (int)
+    "data": {
+        "id": 2 (int),
+        "type": "J" (ENUM - Física ou Jurídica),    
+        "value": "00.000.000/0000-00" (string)
+        "blacklist": true (bool),
+        "blackistReason": "text if blacklist is true" (text),
+        "orderNumber": 2 (int)
+    }
 }
             </pre>
         </li>
@@ -184,7 +187,7 @@ POST (baseUrl + 'persons', (request, response) => {});
             <pre>
 HTTP STATUS: 200
 {
-    "mensagem": "Pessoa cadastrada"
+    "data": "Pessoa cadastrada"
 }
             </pre>
         </li>
@@ -203,6 +206,7 @@ PUT (baseUrl + 'persons/:id', (request, response) => {});
             <br/>
             <pre>
 {
+    "id": 1 (int),
     "type": "J" (ENUM - Física ou Jurídica),
     "value": "00.000.000/0000-00" (string)
 }
@@ -214,7 +218,7 @@ PUT (baseUrl + 'persons/:id', (request, response) => {});
             <pre>
 HTTP STATUS: 200
 {
-    "mensagem": "Pessoa editada"
+    "data": "Pessoa editada"
 }
             </pre>
         </li>
@@ -243,7 +247,7 @@ DELETE (baseUrl + 'persons/:id', (request, response) => {});
             <pre>
 HTTP STATUS: 200
 {
-    "mensagem": "Pessoa excluída"
+    "data": "Pessoa excluída"
 }
             </pre>
         </li>
@@ -262,6 +266,7 @@ PUT (baseUrl + 'persons/:id/blacklist', (request, response) => {});
             <br/>
             <pre>
 {        
+    "id": 1 (int),
     "blacklist": true (bool),
     "blacklist_reason": "text if blacklist is true" (text - opcional e caso seja false limpa este capo),
 }
@@ -272,6 +277,9 @@ PUT (baseUrl + 'persons/:id/blacklist', (request, response) => {});
             <br/>
             <pre>
 HTTP STATUS: 200
+{
+    "data": "Pessoa marcada/desmarcada na blacklist"
+}
             </pre>
         </li>
       </ul>
@@ -298,6 +306,9 @@ POST (baseUrl + 'persons/reorder', (request, response) => {});
             <br/>
             <pre>
 HTTP STATUS: 200
+{
+    "data": "Pessoas reordenadas"
+}
             </pre>
         </li>
       </ul>
