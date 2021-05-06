@@ -2,14 +2,14 @@
 # API desafio CPF/CNPJ
 > Desenvolver uma API em PHP de CRUD de CPF/CNPJ que deve conter a possibilidade de filtro, reordenação e marcar alguns itens em uma black list.
 
-API que executa o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ) pelos end-points (rotas), utilizando:
+APIRest que executa o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ) pelos end-points (rotas), utilizando:
 * [PHP](https://www.php.net/)
 * [Symfony](https://symfony.com/releases/5.2)
 * [MYSQL](https://www.mysql.com/)
 * [Doctrine](https://www.doctrine-project.org/)
 * [Docker](https://www.docker.com/)
-* [PHP Unit](https://phpunit.de/)
-* [Postman](https://www.postman.com/)
+* [PHPUnit](https://phpunit.de/)
+* [Postman](https://www.postman.com/) - *Preferencialmente
 
 ### Pré requisitos
 
@@ -53,7 +53,7 @@ php bin/console doctrine:migrations:migrate
 
 Ainda com o terminal aberto execute os comandos para criar o banco de teste e copiar o schema:
 ```
-php bin/console doctrine:migrations:migrate
+php bin/console -e test doctrine:database:create
 ```
 
 ```
@@ -82,6 +82,10 @@ Descrevi no SWAGGER as rotas que podem ser vistas em:
 ```
 _docs/Swagger-Editor.png
 ```
+<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png" alt="Swagger-Editor" style="max-width:100%;">
+</a>
+
 
 ### Descrição das Rotas
 <details open="open">
@@ -154,7 +158,7 @@ GET (baseUrl + 'persons/:id', (request, response) => {});
             <a href="#built-with">Response</a>
             <br/>
             <pre>
-HTTP HTTP STATUS: 200
+HTTP STATUS: 200
 {
     "data": {
         "id": 2 (int),
