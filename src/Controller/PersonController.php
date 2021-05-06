@@ -159,7 +159,7 @@ class PersonController extends AbstractController
         $person = $this->getDoctrine()->getRepository(Person::class)->find($personId);
 
         if (!$person) {
-            return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
+            return new JsonResponse('Sem registro encontrado', Response::HTTP_BAD_REQUEST);
         }
 
         $manager = $doctrine->getManager();

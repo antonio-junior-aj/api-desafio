@@ -153,28 +153,7 @@ class PersonRepository extends ServiceEntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    /**
-     * Função que trata o objeto para inserir no banco
-     * 
-     * @param object $person
-     * @return object $person tratado
-     */
-    public function serializeObject($person)
-    {
-        if ($person->getType() == Person::TIPO_FISICO) {
-            $cpf_cnpj = MaskUtil::unmaskCpf($person->getCpfCnpj());
-        }
-        if ($person->getType() == Person::TIPO_JURIDICO) {
-            $cpf_cnpj = MaskUtil::unmaskCnpj($person->getCpfCnpj());
-        }
-        if (isset($cpf_cnpj)) {
-            $person->setCpfCnpj($cpf_cnpj);
-        }
-
-        return $person;
-    }
-
-    /**
+    /** ### VALID ###
      * Função que verifica se o CPF/CNPJ é válido e único
      * 
      * @param request $data
@@ -210,5 +189,26 @@ class PersonRepository extends ServiceEntityRepository
         }
 
         return true;
+    }
+
+    /**
+     * Função que trata o objeto para inserir no banco
+     * 
+     * @param object $person
+     * @return object $person tratado
+     */
+    public function serializeObject($person)
+    {
+        if ($person->getType() == Person::TIPO_FISICO) {
+            $cpf_cnpj = MaskUtil::unmaskCpf($person->getCpfCnpj());
+        }
+        if ($person->getType() == Person::TIPO_JURIDICO) {
+            $cpf_cnpj = MaskUtil::unmaskCnpj($person->getCpfCnpj());
+        }
+        if (isset($cpf_cnpj)) {
+            $person->setCpfCnpj($cpf_cnpj);
+        }
+
+        return $person;
     }
 }

@@ -177,7 +177,7 @@ class PersonControllerTest extends WebTestCase
             '/persons/0', # sem id passado
         );
 
-        self::assertEquals(204, $client->getResponse()->getStatusCode());
+        self::assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
     public function testBlacklist(): void
