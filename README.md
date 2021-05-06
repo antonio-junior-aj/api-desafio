@@ -26,7 +26,7 @@ Comece clonando o repositório:
 $ git clone https://github.com/antonio-junior-aj/api-desafio.git
 ```
 
-Copie o `.env-example` e renomeie para `.env`.
+Copie o `.env-example` e renomeie para `.env`, também copie o `.env.test.example` e renomeie para `.env.test`.
 
 Acesse a pasta do projeto e através do Terminal execute o comando:
 ```

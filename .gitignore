@@ -12,6 +12,7 @@
 /nbproject/
 /docker/database/
 /.env.test
+/.env
 
 ###> symfony/phpunit-bridge ###
 .phpunit
