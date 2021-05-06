@@ -6,12 +6,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-/**
- * @method Person|null find($id, $lockMode = null, $lockVersion = null)
- * @method Person|null findOneBy(array $criteria, array $orderBy = null)
- * @method Person[]    findAll()
- * @method Person[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class PersonRepository extends ServiceEntityRepository
 {
 
@@ -23,7 +17,7 @@ class PersonRepository extends ServiceEntityRepository
     /**
      * Função que retorna um array de pessoas, podendo ser filtrado, ordenado e paginado
      * 
-     * @param string $filter
+     * @param string $data
      * @param string $order
      * @param int $page
      * @return retorna um elemento $paginator com o objeto Person
@@ -175,10 +169,10 @@ class PersonRepository extends ServiceEntityRepository
      */
     public function getValidCpfCnpj($data)
     {
-        if (isset($data["value"]) && isset($data["type"]) && $data["type"] == Person::TIPO_FISICO && !\App\Util\ValidateUtil::validaCpf(\App\Util\MaskUtil::unmaskCpf($data["value"]))) {
+        if (isset($data["value"]) && $data["value"] && isset($data["type"]) && $data["type"] == Person::TIPO_FISICO && !\App\Util\ValidateUtil::validaCpf(\App\Util\MaskUtil::unmaskCpf($data["value"]))) {
             return false;
         }
-        if (isset($data["value"]) && isset($data["type"]) && $data["type"] == Person::TIPO_JURIDICO && !\App\Util\ValidateUtil::validaCnpj(\App\Util\MaskUtil::unmaskCnpj($data["value"]))) {
+        if (isset($data["value"]) && $data["value"] && isset($data["type"]) && $data["type"] == Person::TIPO_JURIDICO && !\App\Util\ValidateUtil::validaCnpj(\App\Util\MaskUtil::unmaskCnpj($data["value"]))) {
             return false;
         }
         return true;
