@@ -75,8 +75,8 @@ O modelo foi feito no workbench e pode ser encontrado em:
 ```
 _docs/DB - api-desafio-model.png
 ```
-<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/DB - api-desafio-model.png.png">
-    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/DB - api-desafio-model.png.png" alt="DER" style="max-width:100%;">
+<a href="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/DB%20-%20api-desafio-model.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/DB%20-%20api-desafio-model.png" alt="DER" style="max-width:100%;">
 </a>
 
 Também foi feito uma página HTML para servir como prototipo do fluxo:
@@ -84,8 +84,8 @@ Também foi feito uma página HTML para servir como prototipo do fluxo:
 _docs/prototipo.html
 _docs/prototipo html.png
 ```
-<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/prototipo html.png">
-    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/prototipo html.png" alt="Prototipo" style="max-width:100%;">
+<a href="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/prototipo%20html.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/prototipo%20html.png" alt="Prototipo" style="max-width:100%;">
 </a>
 
 ### Executando a API
@@ -95,7 +95,7 @@ Para executar as rotas deve-se usar um cliente (recomendo postman*) e chamar a r
 _docs/api-desafio.postman_collection.json
 ```
 <p>
-<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/api-desafio.postman_collection.json">
+<a href="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/api-desafio.postman_collection.json">
     Baixar arquivo POSTMAN
 </a>
 </p>
@@ -114,7 +114,7 @@ Rota: Para recuperar todos as pessoas, pode ser passado o parâmetro ORDER para 
 GET (baseUrl + 'persons?ORDER=id&PAGE=1', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {    
@@ -123,7 +123,7 @@ GET (baseUrl + 'persons?ORDER=id&PAGE=1', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -160,7 +160,7 @@ Rota: Para recuperar pessoa pelo ID (caso não recupere, retornará NULL):
 GET (baseUrl + 'persons/:id', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {    
@@ -169,7 +169,7 @@ GET (baseUrl + 'persons/:id', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -196,7 +196,7 @@ Rota: Para cadastrar pessoa (CPF ou CNPJ):
 POST (baseUrl + 'persons', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {
@@ -206,7 +206,7 @@ POST (baseUrl + 'persons', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -226,7 +226,7 @@ Rota: Para editar pessoa pelo ID:
 PUT (baseUrl + 'persons/:id', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {    
@@ -236,7 +236,7 @@ PUT (baseUrl + 'persons/:id', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -256,7 +256,7 @@ Rota: Para excluir pessoa pelo ID:
 DELETE (baseUrl + 'persons/:id', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {    
@@ -265,7 +265,7 @@ DELETE (baseUrl + 'persons/:id', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -285,7 +285,7 @@ Rota: Para marcar/desmarcar na blacklist pelo ID:
 PUT (baseUrl + 'persons/:id/blacklist', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {            
@@ -295,7 +295,7 @@ PUT (baseUrl + 'persons/:id/blacklist', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -315,7 +315,7 @@ Rota: Para ordenar as pessoas, enviar um array com os ids que devem estar na ord
 POST (baseUrl + 'persons/reorder', (request, response) => {});
         </li>
         <li>
-            <a href="#built-with">Request</a>
+            Request
             <br/>
             <pre>
 {    
@@ -324,7 +324,7 @@ POST (baseUrl + 'persons/reorder', (request, response) => {});
             </pre>
         </li>
         <li>
-            <a href="#built-with">Response</a>
+            Response
             <br/>
             <pre>
 HTTP STATUS: 200
@@ -343,6 +343,6 @@ Todas as rotas foram descritas no SWAGGER e podem ser vistas em:
 ```
 _docs/Swagger-Editor.png
 ```
-<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png">
-    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png" alt="Swagger-Editor" style="max-width:100%;">
+<a href="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/Swagger-Editor.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/Swagger-Editor.png" alt="Swagger-Editor" style="max-width:100%;">
 </a>
