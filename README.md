@@ -77,6 +77,11 @@ Para executar as rotas deve-se usar um cliente (recomendo postman) e chamar a ro
 ```
 _docs/api-desafio.postman_collection.json
 ```
+<p>
+<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/api-desafio.postman_collection.json">
+    Baixar arquivo POSTMAN
+</a>
+</p>
 
 Descrevi no SWAGGER as rotas que podem ser vistas em:
 ```
