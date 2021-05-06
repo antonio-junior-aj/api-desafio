@@ -73,11 +73,17 @@ php bin/phpunit --filter {MethodName} tests/PersonControllerTest.php
 <!-- TABLE OF CONTENTS -->
 ### Executando a API
 
-Para executar as pode usar um cliente (recomendo postman) e chamar a rota desejada, disponibilizei o arquivo do postman para importar e executar as rotas em:
+Para executar as rotas deve-se usar um cliente (recomendo postman) e chamar a rota desejada, disponibilizei o arquivo do postman para importar e executar as rotas em:
 ```
 _docs/api-desafio.postman_collection.json
 ```
 
+Descrevi no SWAGGER as rotas que podem ser vistas em:
+```
+_docs/Swagger-Editor.png
+```
+
+### Descrição das Rotas
 <details open="open">
   <summary>Rotas da Aplicação (baseUrl = localhost:8080/)</summary>
   <ol>
