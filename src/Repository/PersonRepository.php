@@ -41,7 +41,7 @@ class PersonRepository extends ServiceEntityRepository
             $qb->andWhere('person.type = :filter_type')
                 ->setParameter('filter_type', $type);
         }
-        if (isset($data["value"])) {
+        if (isset($data["value"]) && $type) {
             if ($type == Person::TIPO_FISICO) {
                 $cpf_cnpj = \App\Util\MaskUtil::unmaskCpf($data["value"]);
             }
@@ -175,10 +175,10 @@ class PersonRepository extends ServiceEntityRepository
      */
     public function getValidCpfCnpj($data)
     {
-        if (!empty($data["value"]) && $data["type"] == Person::TIPO_FISICO && !\App\Util\ValidateUtil::validaCpf(\App\Util\MaskUtil::unmaskCpf($data["value"]))) {
+        if (isset($data["value"]) && isset($data["type"]) && $data["type"] == Person::TIPO_FISICO && !\App\Util\ValidateUtil::validaCpf(\App\Util\MaskUtil::unmaskCpf($data["value"]))) {
             return false;
         }
-        if (!empty($data["value"]) && $data["type"] == Person::TIPO_JURIDICO && !\App\Util\ValidateUtil::validaCnpj(\App\Util\MaskUtil::unmaskCnpj($data["value"]))) {
+        if (isset($data["value"]) && isset($data["type"]) && $data["type"] == Person::TIPO_JURIDICO && !\App\Util\ValidateUtil::validaCnpj(\App\Util\MaskUtil::unmaskCnpj($data["value"]))) {
             return false;
         }
         return true;
@@ -194,6 +194,7 @@ class PersonRepository extends ServiceEntityRepository
      */
     public function findOneByCpfCnpj($type, $cpfORcnpj, $id = null): ?Person
     {
+        $cpf_cnpj = 0;
         if ($type == Person::TIPO_FISICO) {
             $cpf_cnpj = \App\Util\MaskUtil::unmaskCpf($cpfORcnpj);
         }

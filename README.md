@@ -9,7 +9,7 @@ APIRest que executa o CRUD de Pessoa podendo ser Física ou Jurídica (CPF/CNPJ)
 * [Doctrine](https://www.doctrine-project.org/)
 * [Docker](https://www.docker.com/)
 * [PHPUnit](https://phpunit.de/)
-* [Postman](https://www.postman.com/) - *Preferencialmente
+* [Postman](https://www.postman.com/) - (preferencialmente*)
 
 ### Pré requisitos
 
@@ -73,7 +73,7 @@ php bin/phpunit --filter {MethodName} tests/PersonControllerTest.php
 <!-- TABLE OF CONTENTS -->
 ### Executando a API
 
-Para executar as rotas deve-se usar um cliente (recomendo postman) e chamar a rota desejada, disponibilizei o arquivo do postman para importar e executar as rotas em:
+Para executar as rotas deve-se usar um cliente (recomendo postman*) e chamar a rota desejada, disponibilizei o arquivo do postman para importar e executar as rotas em:
 ```
 _docs/api-desafio.postman_collection.json
 ```
@@ -98,7 +98,7 @@ _docs/Swagger-Editor.png
   <ol>
     <li>
       <a href="#rota1">
-Rota: Para recuperar todos as pessoas, pode ser passado o parâmetro ORDER para voltar ordenado pelo campo solicitado, também o parâmetro PAGE para caso queira uma página específica - padrão id (caso não tenha dados, retornará NULL). Também pode ser passado os parâmetros de busca: id, type, value, blacklist:
+Rota: Para recuperar todos as pessoas, pode ser passado o parâmetro ORDER para voltar ordenado pelo campo solicitado, também o parâmetro PAGE para caso queira uma página específica - padrão id (caso não tenha dados, retornará NULL).
       </a>
       <ul>
         <li>
@@ -109,7 +109,7 @@ GET (baseUrl + 'persons?ORDER=id&PAGE=1', (request, response) => {});
             <br/>
             <pre>
 {    
-    // SEM NADA ENVIADO recupera direto do banco
+    // SEM NADA OBRIGATÓRIO ENVIADO recupera direto do banco ou pode filtrar por parâmetros de busca: id, type, value, blacklist:
 }
             </pre>
         </li>

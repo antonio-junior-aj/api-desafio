@@ -11,7 +11,7 @@ class PersonControllerTest extends WebTestCase
 
     public function setUp(): void
     {
-        # para limpar e gerar para cada execução
+        # para limpar e gerar a fixture para cada execução
         static::$kernel = static::createKernel();
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()

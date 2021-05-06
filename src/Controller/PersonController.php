@@ -25,8 +25,8 @@ class PersonController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Person::class);
 //        $persons = $repository->findAll(); # get all
 
-        $data = json_decode($request->getContent(), true);
-
+        $data = $request->query->all();
+        
         if (!$repository->getValidCpfCnpj($data)) {
             return new JsonResponse(['errors' => "CPF/CNPJ inválido",], Response::HTTP_BAD_REQUEST);
         }
