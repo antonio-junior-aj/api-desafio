@@ -26,7 +26,7 @@ class PersonController extends AbstractController
 //        $persons = $repository->findAll(); # get all
 
         if (!$repository->getValidCpfCnpj($request->query)) {
-            throw new \Exception("CPF/CNPJ inválido");
+            return new JsonResponse(['errors' => "CPF/CNPJ inválido",], Response::HTTP_BAD_REQUEST);
         }
 
         $order = $request->request->has("ORDER") ? $request->request->get("ORDER") : "id";

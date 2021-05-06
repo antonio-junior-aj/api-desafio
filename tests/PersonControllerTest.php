@@ -3,10 +3,31 @@ namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+
 class PersonControllerTest extends WebTestCase
 {
 
-    const ID_TRATADO = 1; # ID utilizado de forma estática
+    public function setUp():void
+    {
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager()
+        ;
+
+        $loader = new Loader();
+        $loader->addFixture(new \App\DataFixtures\AppFixtures());
+
+        $purger = new ORMPurger($this->em);
+        $executor = new ORMExecutor($this->em, $purger);
+        $executor->execute($loader->getFixtures());
+
+        parent::setUp();
+    }
 
     public function testIndex(): void
     {
@@ -14,7 +35,7 @@ class PersonControllerTest extends WebTestCase
 
         $client->request(
             'GET',
-            '/persons',
+            '/persons/',
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
@@ -26,7 +47,7 @@ class PersonControllerTest extends WebTestCase
 
         $client->request(
             'GET',
-            '/persons/' . self::ID_TRATADO,
+            '/persons/1',
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
@@ -67,9 +88,9 @@ class PersonControllerTest extends WebTestCase
             $postData,
         );
 
-        self::assertEquals(200, $client->getResponse()->getStatusCode());
+        self::assertEquals(400, $client->getResponse()->getStatusCode());
         $finishedData = json_decode($client->getResponse()->getContent(true), true);
-        $expected = ["data" => "Pessoa cadastrada"];
+        $expected = ["errors" => "CPF/CNPJ inválido"];
         self::assertEquals($expected, $finishedData);
     }
 
@@ -78,12 +99,12 @@ class PersonControllerTest extends WebTestCase
         $client = static::createClient();
         $postData = [
             "type" => "J",
-            "value" => "55.238.879/0001-04"
+            "value" => "04.119.828/0001-14"
         ];
 
         $client->request(
             'PUT',
-            '/persons/' . self::ID_TRATADO,
+            '/persons/2',
             $postData,
         );
 
@@ -103,13 +124,13 @@ class PersonControllerTest extends WebTestCase
 
         $client->request(
             'PUT',
-            '/persons/' . self::ID_TRATADO,
+            '/persons/2',
             $postData,
         );
 
-        self::assertEquals(200, $client->getResponse()->getStatusCode());
+        self::assertEquals(400, $client->getResponse()->getStatusCode());
         $finishedData = json_decode($client->getResponse()->getContent(true), true);
-        $expected = ["data" => "Pessoa edita"];
+        $expected = ["errors" => "CPF/CNPJ não preenchido"];
         self::assertEquals($expected, $finishedData);
     }
 
@@ -119,7 +140,7 @@ class PersonControllerTest extends WebTestCase
 
         $client->request(
             'DELETE',
-            '/persons/' . self::ID_TRATADO,
+            '/persons/3',
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
@@ -137,13 +158,10 @@ class PersonControllerTest extends WebTestCase
             '/persons/0', # sem id passado
         );
 
-        self::assertEquals(200, $client->getResponse()->getStatusCode());
-        $finishedData = json_decode($client->getResponse()->getContent(true), true);
-        $expected = ["data" => "Pessoa excluída"];
-        self::assertEquals($expected, $finishedData);
+        self::assertEquals(204, $client->getResponse()->getStatusCode());
     }
 
-    public function testBlacklistWithSuccess(): void
+    public function testBlacklist(): void
     {
         $client = static::createClient();
         $postData = [
@@ -153,24 +171,7 @@ class PersonControllerTest extends WebTestCase
 
         $client->request(
             'PUT',
-            '/persons/' . self::ID_TRATADO . '/blacklist',
-            $postData,
-        );
-
-        self::assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testBlacklistWithFailure(): void
-    {
-        $client = static::createClient();
-        $postData = [
-//            "blacklist" => false, # sem blacklist
-            "reason" => ""
-        ];
-
-        $client->request(
-            'PUT',
-            '/persons/' . self::ID_TRATADO . '/blacklist',
+            '/persons/4' . '/blacklist',
             $postData,
         );
 
