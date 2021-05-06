@@ -96,7 +96,7 @@ _docs/api-desafio.postman_collection.json
 ```
 <p>
 <a href="https://github.com/antonio-junior-aj/api-desafio/blob/main/_docs/api-desafio.postman_collection.json">
-    Baixar arquivo POSTMAN
+    Disponibilizo o arquivo do POSTMAN* para baixar e importar aqui
 </a>
 </p>
 

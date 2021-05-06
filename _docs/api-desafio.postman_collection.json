@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b8e39337-749a-4204-9039-fa7f878ce56d",
+		"_postman_id": "2fbc19f7-134a-4dcc-8012-f94f9453acfe",
 		"name": "api-desafio",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -26,7 +26,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/persons?ORDER=created_at&PAGE=1&id=1&type=J&value=111.111.112-00&blacklist=0",
+							"raw": "localhost:8080/persons?ORDER=created_at&PAGE=1&id=1&type=F&value=111.111.112-00&blacklist=0",
 							"host": [
 								"localhost"
 							],
@@ -49,7 +49,7 @@
 								},
 								{
 									"key": "type",
-									"value": "J"
+									"value": "F"
 								},
 								{
 									"key": "value",
