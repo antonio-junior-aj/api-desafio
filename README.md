@@ -150,7 +150,7 @@ GET (baseUrl + 'persons/:id', (request, response) => {});
             <br/>
             <pre>
 {    
-    "id": 1 (int) // id para recuperar
+    // id para recuperar passando na rota
 }
             </pre>
         </li>
@@ -215,8 +215,7 @@ PUT (baseUrl + 'persons/:id', (request, response) => {});
             <a href="#built-with">Request</a>
             <br/>
             <pre>
-{
-    "id": 1 (int),
+{    
     "type": "J" (ENUM - Física ou Jurídica),
     "value": "00.000.000/0000-00" (string)
 }
@@ -247,7 +246,7 @@ DELETE (baseUrl + 'persons/:id', (request, response) => {});
             <br/>
             <pre>
 {    
-    "id": 1 (int) // id para deleção
+    // id para deleção passado na rota
 }
             </pre>
         </li>
@@ -275,8 +274,7 @@ PUT (baseUrl + 'persons/:id/blacklist', (request, response) => {});
             <a href="#built-with">Request</a>
             <br/>
             <pre>
-{        
-    "id": 1 (int),
+{            
     "blacklist": true (bool),
     "blacklist_reason": "text if blacklist is true" (text - opcional e caso seja false limpa este capo),
 }

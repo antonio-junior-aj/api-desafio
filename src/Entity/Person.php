@@ -40,8 +40,8 @@ class Person implements \JsonSerializable
      * @Assert\Length(
      *      min = 11,
      *      max = 14,
-     *      minMessage = "CPF/CNPJ deve ter no mínimo 11 caracter",
-     *      maxMessage = "CPF/CNPJ deve ter no máximo 14 caracter",
+     *      minMessage = "CPF/CNPJ deve ter no mínimo 11 caracteres",
+     *      maxMessage = "CPF/CNPJ deve ter no máximo 14 caracteres",
      * )
      */
     private $cpf_cnpj;

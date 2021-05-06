@@ -28,31 +28,31 @@ class PersonRepository extends ServiceEntityRepository
      * @param int $page
      * @return retorna um elemento $paginator com o objeto Person
      */
-    public function findAllQueryBuilder($filter = null, $order = "id", $page = 1)
+    public function findAllQueryBuilder($data = null, $order = "id", $page = 1)
     {
         $qb = $this->createQueryBuilder('person');
-        $id = $filter->get("id");
+        $id = isset($data["id"]) ? $data["id"] : null;
         if ($id) {
             $qb->andWhere('person.id = :filter_id')
                 ->setParameter('filter_id', $id);
         }
-        $type = $filter->get("type");
+        $type = isset($data["type"]) ? $data["type"] : null;
         if ($type) {
             $qb->andWhere('person.type = :filter_type')
                 ->setParameter('filter_type', $type);
         }
-        if ($filter->get("value")) {
-            if ($filter->get("type") == Person::TIPO_FISICO) {
-                $cpf_cnpj = \App\Util\MaskUtil::unmaskCpf($filter->get("value"));
+        if (isset($data["value"])) {
+            if ($type == Person::TIPO_FISICO) {
+                $cpf_cnpj = \App\Util\MaskUtil::unmaskCpf($data["value"]);
             }
-            if ($filter->get("type") == Person::TIPO_JURIDICO) {
-                $cpf_cnpj = \App\Util\MaskUtil::unmaskCnpj($filter->get("value"));
+            if ($type == Person::TIPO_JURIDICO) {
+                $cpf_cnpj = \App\Util\MaskUtil::unmaskCnpj($data["value"]);
             }
 
             $qb->andWhere('person.cpf_cnpj LIKE :filter_cpf_cnpj')
                 ->setParameter('filter_cpf_cnpj', '%' . $cpf_cnpj . '%');
         }
-        $blacklist = $filter->get("blacklist");
+        $blacklist = isset($data["blacklist"]) ? $data["blacklist"] : null;
         if ($blacklist) {
             $qb->andWhere('person.blacklist = :filter_blacklist')
                 ->setParameter('filter_blacklist', $blacklist);
@@ -156,25 +156,12 @@ class PersonRepository extends ServiceEntityRepository
      */
     public function getValid($data, $isEdit = false)
     {
-        /*
-          if (!$isEdit && empty($data->get("type"))) {
-          throw new \Exception('Tipo não preenchido');
-          }
-          if (!empty($data->get("type")) && !in_array($data->get("type"), array_keys(Person::$_TIPO))) {
-          throw new \Exception("Selecione Pessoa Física(" . Person::TIPO_FISICO . ") ou Jurídica(" . Person::TIPO_JURIDICO . ")");
-          }
-
-          if (!$isEdit && empty($data->get("value"))) {
-          throw new \Exception("CPF/CNPJ não preenchido");
-          }
-         */
-
         if (!$this->getValidCpfCnpj($data)) {
             throw new \Exception("CPF/CNPJ inválido");
         }
 
         # valida CPF/CNPJ para ficar unico
-        $hasCpfCnpj = $this->findOneByCpfCnpj($data->get("type"), $data->get("value"), $isEdit);
+        $hasCpfCnpj = $this->findOneByCpfCnpj($data["type"], $data["value"], $isEdit);
         if ($hasCpfCnpj) {
             throw new \Exception("CPF/CNPJ já existente");
         }
@@ -188,17 +175,17 @@ class PersonRepository extends ServiceEntityRepository
      */
     public function getValidCpfCnpj($data)
     {
-        if (!empty($data->get("value")) && $data->get("type") == Person::TIPO_FISICO && !\App\Util\ValidateUtil::validaCpf(\App\Util\MaskUtil::unmaskCpf($data->get("value")))) {
+        if (!empty($data["value"]) && $data["type"] == Person::TIPO_FISICO && !\App\Util\ValidateUtil::validaCpf(\App\Util\MaskUtil::unmaskCpf($data["value"]))) {
             return false;
         }
-        if (!empty($data->get("value")) && $data->get("type") == Person::TIPO_JURIDICO && !\App\Util\ValidateUtil::validaCnpj(\App\Util\MaskUtil::unmaskCnpj($data->get("value")))) {
+        if (!empty($data["value"]) && $data["type"] == Person::TIPO_JURIDICO && !\App\Util\ValidateUtil::validaCnpj(\App\Util\MaskUtil::unmaskCnpj($data["value"]))) {
             return false;
         }
         return true;
     }
 
     /**
-     * Funciona que verifica se a pessoa é única pelo tipo e CPF/CNPJ
+     * Função que verifica se a pessoa é única pelo tipo e CPF/CNPJ
      * 
      * @param string $type (F ou J)
      * @param string $cpfORcnpj

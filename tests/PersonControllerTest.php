@@ -2,7 +2,6 @@
 namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
@@ -10,14 +9,14 @@ use Doctrine\Common\DataFixtures\Loader;
 class PersonControllerTest extends WebTestCase
 {
 
-    public function setUp():void
+    public function setUp(): void
     {
+        # para limpar e gerar para cada execução
         static::$kernel = static::createKernel();
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
-            ->getManager()
-        ;
+            ->getManager();
 
         $loader = new Loader();
         $loader->addFixture(new \App\DataFixtures\AppFixtures());
@@ -64,7 +63,12 @@ class PersonControllerTest extends WebTestCase
         $client->request(
             'POST',
             '/persons/',
-            $postData,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            json_encode($postData),
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
@@ -85,7 +89,12 @@ class PersonControllerTest extends WebTestCase
         $client->request(
             'POST',
             '/persons/',
-            $postData,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            json_encode($postData),
         );
 
         self::assertEquals(400, $client->getResponse()->getStatusCode());
@@ -105,7 +114,12 @@ class PersonControllerTest extends WebTestCase
         $client->request(
             'PUT',
             '/persons/2',
-            $postData,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            json_encode($postData),
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
@@ -125,12 +139,17 @@ class PersonControllerTest extends WebTestCase
         $client->request(
             'PUT',
             '/persons/2',
-            $postData,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            json_encode($postData),
         );
 
         self::assertEquals(400, $client->getResponse()->getStatusCode());
         $finishedData = json_decode($client->getResponse()->getContent(true), true);
-        $expected = ["errors" => "CPF/CNPJ não preenchido"];
+        $expected = ["errors" => ["CPF/CNPJ não preenchido","CPF/CNPJ deve ter no mínimo 11 caracteres"]];
         self::assertEquals($expected, $finishedData);
     }
 
@@ -172,7 +191,12 @@ class PersonControllerTest extends WebTestCase
         $client->request(
             'PUT',
             '/persons/4' . '/blacklist',
-            $postData,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            json_encode($postData),
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
@@ -188,7 +212,12 @@ class PersonControllerTest extends WebTestCase
         $client->request(
             'POST',
             '/persons/reorder',
-            $postData,
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            json_encode($postData),
         );
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());

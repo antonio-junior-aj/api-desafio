@@ -25,12 +25,14 @@ class PersonController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Person::class);
 //        $persons = $repository->findAll(); # get all
 
-        if (!$repository->getValidCpfCnpj($request->query)) {
+        $data = json_decode($request->getContent(), true);
+
+        if (!$repository->getValidCpfCnpj($data)) {
             return new JsonResponse(['errors' => "CPF/CNPJ inválido",], Response::HTTP_BAD_REQUEST);
         }
 
-        $order = $request->request->has("ORDER") ? $request->request->get("ORDER") : "id";
-        $persons = $repository->findAllQueryBuilder($request, $order, ($request->request->has("PAGE") ? $request->request->get("PAGE") : 1));
+        $order = isset($data["ORDER"]) ? $data["ORDER"] : "id";
+        $persons = $repository->findAllQueryBuilder($data, $order, (isset($data["PAGE"]) ? $data["PAGE"] : 1));
 
         if (!$persons->count()) {
             return new JsonResponse('Sem registros encontrados', Response::HTTP_NO_CONTENT);
@@ -46,7 +48,8 @@ class PersonController extends AbstractController
      */
     public function show($personId): Response
     {
-        $person = $this->getDoctrine()->getRepository(Person::class)->find($personId);
+        $repository = $this->getDoctrine()->getRepository(Person::class);
+        $person = $repository->find($personId);
 
         if (!$person) {
             return new JsonResponse('Sem registro encontrado para o índice: ' . $personId, Response::HTTP_NO_CONTENT);
@@ -62,17 +65,16 @@ class PersonController extends AbstractController
      */
     public function create(Request $request, ValidatorInterface $validator): Response
     {
-//        $data = json_decode($request->getContent(), true); # json
         $repository = $this->getDoctrine()->getRepository(Person::class);
+        $data = json_decode($request->getContent(), true);
 
         # validacao manual PHP
         try {
-            $repository->getValid($request->request);
+            $repository->getValid($data);
         } catch (\Exception $ex) {
             return new JsonResponse(['errors' => $ex->getMessage(),], Response::HTTP_BAD_REQUEST);
         }
 
-        $data = $request->request->all();
         $person = new Person();
         $person->setType(isset($data["type"]) ? $data["type"] : '');
         $person->setCpfCnpj(isset($data["value"]) ? $data["value"] : '');
@@ -106,26 +108,26 @@ class PersonController extends AbstractController
     {
         $doctrine = $this->getDoctrine();
         $repository = $doctrine->getRepository(Person::class);
+        $data = json_decode($request->getContent(), true);
 
         # validacao manual PHP
         try {
-            $repository->getValid($request->request, $personId);
+            $repository->getValid($data, $personId);
         } catch (\Exception $ex) {
             return new JsonResponse(['errors' => $ex->getMessage(),], Response::HTTP_BAD_REQUEST);
         }
 
-        $data = $request->request->all();
         $person = $repository->find($personId);
-        
+
         if (!$person) {
             return new JsonResponse('Sem registro encontrado', Response::HTTP_NO_CONTENT);
         }
-        
-        if ($request->request->has("type")) {
+
+        if (isset($data["type"])) {
             $person->setType($data["type"]);
         }
 
-        if ($request->request->has("value")) {
+        if (isset($data["value"])) {
             $person->setCpfCnpj($data["value"]);
             $person = $repository->serializeObject($person);
         }
@@ -178,7 +180,7 @@ class PersonController extends AbstractController
         $doctrine = $this->getDoctrine();
         $repository = $doctrine->getRepository(Person::class);
 
-        $data = $request->request->all();
+        $data = json_decode($request->getContent(), true);
         $person = $repository->find($personId);
 
         if (!$person) {
@@ -187,7 +189,7 @@ class PersonController extends AbstractController
 
         $person->setBlacklist($data["blacklist"]);
         if ($data["blacklist"]) {
-            $person->setBlacklistReason($data["reason"]);
+            $person->setBlacklistReason(isset($data["reason"]) ? $data["reason"] : null);
             $strBlacklist = "marcada";
         } else {
             $person->setBlacklist(false);
@@ -211,7 +213,7 @@ class PersonController extends AbstractController
     public function reorder(Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(Person::class);
-        $data = $request->request->all();
+        $data = json_decode($request->getContent(), true);
 
         if (!$data["ids"]) {
             return new JsonResponse('Sem IDs enviado', Response::HTTP_NO_CONTENT);
