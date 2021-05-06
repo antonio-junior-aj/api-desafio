@@ -26,9 +26,9 @@ Comece clonando o repositório:
 $ git clone https://github.com/antonio-junior-aj/api-desafio.git
 ```
 
-Copie o .env-example e renomeie para .env
+Copie o `.env-example` e renomeie para `.env`.
 
-Acesse a pasta do projeto através do PowerShell e execute o comando
+Acesse a pasta do projeto e através do Terminal execute o comando:
 ```
 docker-compose up --build -d
 ```
@@ -70,7 +70,24 @@ Para testar um método específico:
 php bin/phpunit --filter {MethodName} tests/PersonControllerTest.php
 ```
 
-<!-- TABLE OF CONTENTS -->
+### Documentação
+O modelo foi feito no workbench e pode ser encontrado em:
+```
+_docs/DB - api-desafio-model.png
+```
+<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/DB - api-desafio-model.png.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/DB - api-desafio-model.png.png" alt="DER" style="max-width:100%;">
+</a>
+
+Também foi feito uma página HTML para servir como prototipo do fluxo:
+```
+_docs/prototipo.html
+_docs/prototipo html.png
+```
+<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/prototipo html.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/prototipo html.png" alt="Prototipo" style="max-width:100%;">
+</a>
+
 ### Executando a API
 
 Para executar as rotas deve-se usar um cliente (recomendo postman*) e chamar a rota desejada, disponibilizei o arquivo do postman para importar e executar as rotas em:
@@ -83,22 +100,14 @@ _docs/api-desafio.postman_collection.json
 </a>
 </p>
 
-Descrevi no SWAGGER as rotas que podem ser vistas em:
-```
-_docs/Swagger-Editor.png
-```
-<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png">
-    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png" alt="Swagger-Editor" style="max-width:100%;">
-</a>
-
-
 ### Descrição das Rotas
+<!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Rotas da Aplicação (baseUrl = localhost:8080/)</summary>
   <ol>
     <li>
       <a href="#rota1">
-Rota: Para recuperar todos as pessoas, pode ser passado o parâmetro ORDER para voltar ordenado pelo campo solicitado, também o parâmetro PAGE para caso queira uma página específica - padrão id (caso não tenha dados, retornará NULL).
+Rota: Para recuperar todos as pessoas, pode ser passado o parâmetro ORDER para voltar ordenado pelo campo solicitado, também o parâmetro PAGE para caso queira uma página específica - padrão id (caso não tenha dados, retornará NULL):
       </a>
       <ul>
         <li>
@@ -109,7 +118,7 @@ GET (baseUrl + 'persons?ORDER=id&PAGE=1', (request, response) => {});
             <br/>
             <pre>
 {    
-    // SEM NADA OBRIGATÓRIO ENVIADO recupera direto do banco ou pode filtrar por parâmetros de busca: id, type, value, blacklist:
+    // SEM NADA OBRIGATÓRIO recupera direto do banco ou pode filtrar por parâmetros de busca: id, type, value, blacklist:
 }
             </pre>
         </li>
@@ -328,3 +337,12 @@ HTTP STATUS: 200
     </li>
   </ol>
 </details>
+
+
+Todas as rotas foram descritas no SWAGGER e podem ser vistas em:
+```
+_docs/Swagger-Editor.png
+```
+<a href="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png">
+    <img src="https://github.com/antonio-junior-aj/api-desafio/_docs/Swagger-Editor.png" alt="Swagger-Editor" style="max-width:100%;">
+</a>

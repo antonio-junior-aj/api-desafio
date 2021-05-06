@@ -1,0 +1,135 @@
+<html lang="en">
+    <head>
+        <title>Prototipo</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- jquery -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <style>
+            #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+            #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+            #sortable li span { position: absolute; margin-left: -1.3em; }
+        </style>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <!-- bootstrap modal -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <!-- chamadas -->
+        <script type="text/javascript">
+            $(function () {
+                $("#sortable").sortable({
+                    update: function (event, ui) {
+                        var sorted = $("#sortable").sortable("serialize", {key: "sort"});
+                        console.log(sorted);
+                        //$.post( "form/order.php",{ 'choices[]': sorted});
+                    }
+                });
+
+                $('.add-blacklist').change(function () {
+                    if ($(this).is(":checked")) {
+                        var valor = $(this).val();
+                        $('#exampleModalLabel').html("Justicativa para: " + valor);
+                        $("#exampleModal").modal();
+                    }
+                });
+
+                $('[data-toggle="tooltip"]').tooltip();
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <br/><br/>
+            <form>
+                <div class="row">
+                    <div class="col-md-5">
+                        <select class="form-control">
+                            <option value="" disabled="">-TIPO-</option>
+                            <option value="1">Física</option>
+                            <option value="2">Jurídica</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" placeholder="CPF/CNPJ">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="form-control btn-info">Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+            
+            <table class="table table-striped" border="1">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">CPF/CNPJ</th>
+
+                        <th scope="col" colspan="3">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="sortable">
+                    <tr id="item-1">
+                        <th scope="row">1</th>
+                        <td>Física</td>
+                        <td>111.111.112-00</td>
+
+                        <th><label><input type="checkbox" class="add-blacklist" value="1"/> Blacklist</label></th>
+                        <td>EDITAR</td>
+                        <td>EXCLUIR</td>
+                    </tr>
+                    <tr id="item-2">
+                        <th scope="row">2</th>
+                        <td>Jurídica</td>
+                        <td>55.238.879/0001-04</td>
+
+                        <th><label><input type="checkbox" class="add-blacklist" value="2"/> Blacklist</label></th>
+                        <td>EDITAR</td>
+                        <td>EXCLUIR</td>
+                    </tr>
+                    <tr id="item-3">
+                        <th scope="row">3</th>
+                        <td>Jurídica</td>
+                        <td>55.238.879/0001-04</td>
+
+                        <th><label data-toggle="tooltip" data-placement="right" title="Justificativa"><input type="checkbox"  class="add-blacklist" value="3" checked=""/> Blacklist</label></th>
+                        <td>EDITAR</td>
+                        <td>EXCLUIR</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Justificativa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
