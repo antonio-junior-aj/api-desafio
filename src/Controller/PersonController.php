@@ -23,7 +23,6 @@ class PersonController extends AbstractController
     public function index(Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(Person::class);
-//        $persons = $repository->findAll(); # get all
 
         $data = $request->query->all();
         
@@ -216,7 +215,7 @@ class PersonController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (!$data["ids"]) {
-            return new JsonResponse('Sem IDs enviado', Response::HTTP_NO_CONTENT);
+            return new JsonResponse('Sem IDs enviados', Response::HTTP_NO_CONTENT);
         }
         $repository->reorder($data["ids"]);
 
